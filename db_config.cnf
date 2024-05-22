@@ -1,0 +1,6 @@
+[client]
+port = 3307
+host = localhost
+user = admin
+password = testing321
+database = learn_cms
