@@ -13,3 +13,13 @@ POST http://127.0.0.1:8000/api/auth/login
 Content-Type: application/json
 
 {"username": "testing2", "password":"testing321"}
+
+###
+POST http://127.0.0.1:8000/api/productos/crearCategoria
+Content-Type: application/json
+
+{"nombre": "Taladros"}
+
+###
+GET http://127.0.0.1:8000/api/productos/crearCategoria
+Content-Type: application/json
