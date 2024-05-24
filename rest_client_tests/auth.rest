@@ -1,6 +1,3 @@
-GET http://127.0.0.1:8000
-
-###
 
 POST http://127.0.0.1:8000/api/auth/register
 Content-Type: application/json
@@ -8,18 +5,12 @@ Content-Type: application/json
 {"username": "testing2", "password":"testing321","email":"example@email.com"}
 
 ###
-
 POST http://127.0.0.1:8000/api/auth/login
 Content-Type: application/json
 
-{"username": "testing2", "password":"testing321"}
+{"username": "admin", "password":"Testing321"}
 
 ###
-POST http://127.0.0.1:8000/api/productos/crearCategoria
+GET http://127.0.0.1:8000/api/auth/testToken
 Content-Type: application/json
-
-{"nombre": "Taladros"}
-
-###
-GET http://127.0.0.1:8000/api/productos/crearCategoria
-Content-Type: application/json
+Authorization: Token 5b57235cb76953c7209b2c0d47e0722e348109cf

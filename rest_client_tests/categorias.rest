@@ -1,0 +1,22 @@
+POST http://127.0.0.1:8000/api/productos/categoriaList/
+Content-Type: application/json
+
+{"nombre": "Herramientas Eliminar"}
+
+###
+GET  http://127.0.0.1:8000/api/productos/categoriaList/
+Content-Type: application/json
+
+###
+GET  http://127.0.0.1:8000/api/productos/categoriaDetalle/4
+Content-Type: application/json
+
+###
+PUT http://127.0.0.1:8000/api/productos/categoriaDetalle/4
+Content-Type: application/json
+
+{"nombre": "Herramientas Electricas"}
+
+###
+DELETE http://127.0.0.1:8000/api/productos/categoriaDetalle/5
+Content-Type: application/json
