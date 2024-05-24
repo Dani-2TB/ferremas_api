@@ -1,0 +1,23 @@
+
+POST http://127.0.0.1:8000/api/productos/subcategoriaList/
+Content-Type: application/json
+
+{"nombre": "Desatornilladorads", "categoria": 3}
+
+###
+GET  http://127.0.0.1:8000/api/productos/subcategoriaList/
+Content-Type: application/json
+
+###
+GET  http://127.0.0.1:8000/api/productos/subcategoriaDetalle/2
+Content-Type: application/json
+
+###
+PUT http://127.0.0.1:8000/api/productos/subcategoriaDetalle/1
+Content-Type: application/json
+
+{"nombre": "Martillos"}
+
+###
+DELETE http://127.0.0.1:8000/api/productos/subcategoriaDetalle/2
+Content-Type: application/json
