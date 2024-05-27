@@ -1,18 +1,21 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
-from .models import Categoria, Subcategoria, Producto
+from .models import Categoria, Producto
 
-class CategoriaSerializer(ModelSerializer):
+class CategoriaSerializer(serializers.ModelSerializer):
+    sub_categorias = serializers.SerializerMethodField()
+
     class Meta:
         model = Categoria
-        fields = ['id','nombre']
+        fields = ['id', 'nombre', 'sub_categorias']
 
-class SubcategoriaSerializer(ModelSerializer):
-    class Meta:
-        model = Subcategoria
-        fields = ['id','nombre', 'categoria']
+    def get_sub_categorias(self, obj):
+        subcategorias = obj.sub_categorias.all()
+        if subcategorias:
+            return CategoriaSerializer(subcategorias, many=True).data
+        return []
 
-class ProductoSerializer(ModelSerializer):
+class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = [
@@ -20,6 +23,5 @@ class ProductoSerializer(ModelSerializer):
             'descripcion', 
             'precio', 
             'cantidad', 
-            'categoria', 
-            'subcategoria'
+            'categoria',
             ]
