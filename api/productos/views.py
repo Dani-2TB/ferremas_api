@@ -84,7 +84,7 @@ class ProductoDetalle(APIView):
     def get(self, request, pk, format=None):
         producto = Producto.objects.get(pk=pk)
         serializer = ProductoSerializer(producto)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.data)
 
     # Update producto
     def put(self, request, pk, format=None):
@@ -102,3 +102,18 @@ class ProductoDetalle(APIView):
         producto = self.get_object(pk)
         producto.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductoCategoriaList(APIView):
+    def get_objects(self, id_categoria):
+        try:
+            return Producto.objects.filter(categoria = id_categoria) 
+        except Producto.DoesNotExist:
+            raise Http404
+
+    def get(self, request, id_categoria):
+        productos = self.get_objects(id_categoria)
+        serializer = ProductoSerializer(productos, many=True)
+        if serializer.data == []:
+            return Response({'error': 'Not found'}, status.HTTP_404_NOT_FOUND)
+        return Response(serializer.data)
