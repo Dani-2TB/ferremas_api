@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'api.auth_service',
     'api.productos',
-    'api.tbk'
+    'api.tbk',
+    'api.carrito'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+CART_SESSION_ID = 'cart'

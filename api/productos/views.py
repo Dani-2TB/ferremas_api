@@ -86,6 +86,7 @@ class ProductoDetalle(APIView):
         serializer = ProductoSerializer(producto)
         return Response(serializer.data)
 
+
     # Update producto
     def put(self, request, pk, format=None):
         producto = self.get_object(pk)

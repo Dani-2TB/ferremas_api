@@ -25,7 +25,7 @@ class Producto(models.Model):
         blank=True,
         default=""
         )
-    precio = models.DecimalField(max_digits=10,decimal_places=2)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.IntegerField()
     categoria = models.ForeignKey(
         Categoria, 
