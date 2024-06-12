@@ -1,20 +1,30 @@
 from django.db import models
 
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=60, unique=True)
     categoria_madre = models.ForeignKey(
-        'self', 
+        'self',
         related_name='sub_categorias',
         on_delete=models.SET_NULL,
         null=True,
         blank=True)
+
     def __str__(self):
         if self.categoria_madre != None:
-            return f"{ self.categoria_madre.nombre} -> {self.nombre}"
+            return f"{ self.categoria_madre.nombre}-> {self.nombre}"
         return f"{self.nombre}"
-    
+
     class Meta:
         ordering = ['nombre']
+
+
+class Marca(models.Model):
+    nombre = models.CharField(max_length=60, null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.nombre}"
+
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -33,6 +43,11 @@ class Producto(models.Model):
         null=True, 
         blank=True
         )
+    marca = models.ForeignKey(
+        Marca,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL)
     
     def __str__(self):
         return f"Producto: {self.nombre}"

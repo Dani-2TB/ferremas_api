@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import Categoria, Producto
 
+
 class CategoriaSerializer(serializers.ModelSerializer):
     sub_categorias = serializers.SerializerMethodField()
 
@@ -15,14 +16,16 @@ class CategoriaSerializer(serializers.ModelSerializer):
             return CategoriaSerializer(subcategorias, many=True).data
         return []
 
+
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = [
             'id',
             'nombre',
-            'descripcion', 
-            'precio', 
-            'cantidad', 
+            'descripcion',
+            'precio',
+            'cantidad',
             'categoria',
-            ]
+            'marca'
+        ]

@@ -8,6 +8,10 @@ from django.shortcuts import get_object_or_404
 
 from .serializers import UserSerializer
 
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+
 class Register(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -20,6 +24,7 @@ class Register(APIView):
             return Response({"user":serializer.data, "token": token.key}, status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
+
 class Login(APIView):
     def post(self,request):
         user = get_object_or_404(User, username=request.data["username"])
@@ -29,8 +34,6 @@ class Login(APIView):
         token, created = Token.objects.get_or_create(user=user)
         return Response({"user":request.data["username"],"token": token.key}, status.HTTP_202_ACCEPTED)
 
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 class AutenticarToken(APIView):
     permission_classes = [IsAuthenticated]
