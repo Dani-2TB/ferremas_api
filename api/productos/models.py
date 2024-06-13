@@ -11,8 +11,8 @@ class Categoria(models.Model):
         blank=True)
 
     def __str__(self):
-        if self.categoria_madre != None:
-            return f"{ self.categoria_madre.nombre}-> {self.nombre}"
+        if self.categoria_madre is not None:
+            return f"{self.categoria_madre.nombre}-> {self.nombre}"
         return f"{self.nombre}"
 
     class Meta:
@@ -38,9 +38,9 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.IntegerField()
     categoria = models.ForeignKey(
-        Categoria, 
-        on_delete=models.SET_NULL, 
-        null=True, 
+        Categoria,
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True
         )
     marca = models.ForeignKey(
@@ -48,7 +48,7 @@ class Producto(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL)
-    
+
     def __str__(self):
         return f"Producto: {self.nombre}"
 
