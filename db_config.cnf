@@ -1,6 +1,6 @@
 [client]
 port = 3307
 host = localhost
-user = admin
-password = testing321
-database = learn_cms
+user = dev_admin
+password = Testing4321
+database = ferremas_dev

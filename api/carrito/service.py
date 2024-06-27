@@ -33,9 +33,9 @@ class Cart:
                 "precio": str(producto["precio"])
             }
         if overide_quantity:
-            self.cart[producto_id]["cantidad"] = cantidad 
+            self.cart[producto_id]["cantidad"] = cantidad
         else:
-            self.cart[producto_id]["cantidad"] += cantidad 
+            self.cart[producto_id]["cantidad"] += cantidad
         self.save()
 
     def remove(self, producto):

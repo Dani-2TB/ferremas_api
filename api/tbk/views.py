@@ -5,6 +5,7 @@ from transbank.webpay.webpay_plus.transaction import Transaction
 api_key = '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
 commerce_code = '597055555532'
 
+
 def tbk_view(request, total):
     transaction = Transaction()
     response = transaction.create(
@@ -14,6 +15,7 @@ def tbk_view(request, total):
         return_url='http://127.0.0.1:8000/api/tbk/response'
     )
     return redirect(response['url'] + '?token_ws=' + response['token'])
+
 
 def tbk_response_view(request):
     token = request.GET.get('token_ws')
