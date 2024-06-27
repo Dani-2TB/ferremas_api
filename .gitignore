@@ -3,3 +3,4 @@ api/__pycache__
 api/auth_service/__pycache__
 api/productos/__pycache__
 config/__pycache__
+*.pyc
