@@ -20,7 +20,7 @@ class Categoria(models.Model):
 
 
 class Marca(models.Model):
-    nombre = models.CharField(max_length=60, null=False, blank=False)
+    nombre = models.CharField(max_length=60, null=False, blank=False, default="")
 
     def __str__(self):
         return f"{self.nombre}"
