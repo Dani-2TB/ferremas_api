@@ -125,7 +125,7 @@ class ProductoCategoriaList(APIView, ProductoPaginationMixin):
         page = self.paginate_queryset(productos)
 
         if page != []:
-            serializer = ProductoSerializer(page, many=True)
+            serializer = ProductoViewSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
         else:
             return Response({"error": "not found"}, status.HTTP_404_NOT_FOUND)
