@@ -32,7 +32,10 @@ class Login(APIView):
             return Response({"detail": "Not Found"}, status.HTTP_404_NOT_FOUND)
 
         token, created = Token.objects.get_or_create(user=user)
-        return Response({"user":request.data["username"],"token": token.key}, status.HTTP_202_ACCEPTED)
+        rol = "usuario"
+        if user.is_staff:
+            rol = "admin"
+        return Response({"user":request.data["username"],"token": token.key, "rol": rol}, status.HTTP_202_ACCEPTED)
 
 
 class AutenticarToken(APIView):

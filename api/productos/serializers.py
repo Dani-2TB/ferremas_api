@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Categoria, Producto
+from .models import Categoria, Producto, Marca
 
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
         return []
 
 
-class ProductoSerializer(serializers.ModelSerializer):
+class ProductoViewSerializer(serializers.ModelSerializer):
     nombre_categoria = serializers.CharField(source='categoria.nombre')
     nombre_marca = serializers.CharField(source='marca.nombre', allow_null=True)
 
@@ -32,3 +32,21 @@ class ProductoSerializer(serializers.ModelSerializer):
             'nombre_categoria',
             'nombre_marca'
         ]
+
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = [
+            'id',
+            'nombre',
+            'descripcion',
+            'precio',
+            'cantidad',
+            'categoria',
+            'marca'
+        ]
+
+class MarcaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Marca
+        fields = "__all__"

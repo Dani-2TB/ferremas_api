@@ -3,8 +3,13 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from django.http import Http404
-from .models import Producto, Categoria
-from .serializers import ProductoSerializer, CategoriaSerializer
+from .models import Producto, Categoria, Marca
+from .serializers import (
+    ProductoSerializer,
+    ProductoViewSerializer, 
+    CategoriaSerializer, 
+    MarcaSerializer
+    )
 from .external import obtener_valor_dolar
 from .mixins import ProductoPaginationMixin
 
@@ -70,7 +75,7 @@ class ProductoList(APIView):
 
     def get(self, request, format=None):
         productos = Producto.objects.all()
-        serializer = ProductoSerializer(productos, many=True)
+        serializer = ProductoViewSerializer(productos, many=True)
         return Response(serializer.data)
 
 
@@ -124,6 +129,21 @@ class ProductoCategoriaList(APIView, ProductoPaginationMixin):
             return self.get_paginated_response(serializer.data)
         else:
             return Response({"error": "not found"}, status.HTTP_404_NOT_FOUND)
+
+
+class MarcaList(APIView):
+    def post(self, request, format=None):
+        serializer = MarcaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, format=None):
+        marcas = Marca.objects.all()
+        serializer = MarcaSerializer(marcas, many=True)
+        return Response(serializer.data)
+
 
 
 class ObtenerUSD(APIView):
