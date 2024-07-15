@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from transbank.webpay.webpay_plus.transaction import Transaction
 
 api_key = '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
@@ -23,6 +23,6 @@ def tbk_response_view(request):
     response = transaction.commit(token=token)
 
     if response['status'] == 'AUTHORIZED':
-        return HttpResponse("Transacción Exitosa: " + str(response))
+        return render(request, 'aceptado.html')
     else:
-        return HttpResponse("Transacción Fallida: " + str(response))
+        return render(request, 'rechazado.html')

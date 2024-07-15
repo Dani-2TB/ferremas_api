@@ -2,39 +2,40 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .service import Cart
 from rest_framework import status
+from .models import Carrito, ItemCarrito
+from .serializers import (
+    CarritoSerializer,
+    )
+from django.http import Http404
 
 class CarritoAPI(APIView):
-    """
-    Single API to handle cart operations
-    """
-    def get(self, request, format=None):
-        cart = Cart(request)
+    # Obtener objeto desde la BD
+    def get_object(self, pk):
+        try:
+            return Carrito.objects.get(pk=pk)
+        except Carrito.DoesNotExist:
+            raise Http404
+        
+    def post(self, request, format=None):
+        serializer = CarritoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(
-            {"data": list(cart.__iter__()), 
-            "precio_total": cart.get_precio_total()},
-            status=status.HTTP_200_OK
-            )
+    # Obtener carrito
+    def get(self, request, pk, format=None):
+        producto = Carrito.objects.get(pk=pk)
+        serializer = CarritoSerializer(producto)
+        return Response(serializer.data)
 
-    def post(self, request, **kwargs):
-        cart = Cart(request)
+    # Update carrito
+    def put(self, request, pk, format=None):
+        producto = self.get_object(pk)
 
-        if "remove" in request.data:
-            producto = request.data["producto"]
-            cart.remove(producto)
+        serializer = CarritoSerializer(producto, data=request.data)
 
-        elif "clear" in request.data:
-            cart.clear()
-
-        else:
-            producto = request.data
-            cart.add(
-                    producto=producto["producto"],
-                    cantidad=producto["cantidad"],
-                    overide_quantity=producto["overide_quantity"] if "overide_quantity" in producto else False
-                )
-
-        return Response(
-            {"message": "cart updated"},
-            status=status.HTTP_202_ACCEPTED)
-
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
