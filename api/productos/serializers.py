@@ -36,15 +36,7 @@ class ProductoViewSerializer(serializers.ModelSerializer):
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = [
-            'id',
-            'nombre',
-            'descripcion',
-            'precio',
-            'cantidad',
-            'categoria',
-            'marca'
-        ]
+        fields = "__all__"
 
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:

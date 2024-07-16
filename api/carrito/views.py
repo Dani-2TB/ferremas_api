@@ -6,7 +6,12 @@ from .models import Carrito, ItemCarrito
 from .serializers import (
     CarritoSerializer,
     )
-from django.http import Http404
+from django.http import Http404 
+
+class CrearCarrito(APIView):
+    def post(self, request, format=None):
+        ...
+
 
 class CarritoAPI(APIView):
     # Obtener objeto desde la BD
