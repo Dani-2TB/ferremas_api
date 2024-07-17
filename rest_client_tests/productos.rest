@@ -1,0 +1,27 @@
+
+POST http://localhost:8000/api/productos/productoList/
+Content-Type: application/json
+
+{"nombre":"Desatornillador", "precio": 2990,"cantidad": 1, "categoria": 4}
+
+###
+
+GET http://localhost:8000/api/productos/productoList/
+Content-Type: application/json
+
+###
+PUT http://localhost:8000/api/productos/productoDetalle/3
+Content-Type: application/json
+
+{
+    "nombre": "Desatornillador",
+    "descripcion": "Sin Descripción",
+    "precio": "2990.00",
+    "cantidad": 1,
+    "categoria": 3,
+    "subcategoria": null
+}
+
+###
+DELETE http://localhost:8000/api/productos/productoDetalle/1
+Content-Type: application/json

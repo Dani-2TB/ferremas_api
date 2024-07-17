@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-=)l1*ig)k)^h25+3s%%xnld+j7rul9c75y0@ybvp)$e#^wfmkd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -42,6 +41,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'api.auth_service',
     'api.productos',
+    'api.tbk',
+    'api.carrito'
 ]
 
 MIDDLEWARE = [
@@ -81,8 +82,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        'OPTIONS': {
+            "read_default_file": str(BASE_DIR) + '/db_config.cnf'
+        },
     }
 }
 
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -132,9 +135,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 6
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
+    "http://localhost:5174",
 ]
+
+CART_SESSION_ID = 'cart'
