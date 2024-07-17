@@ -160,6 +160,6 @@ class ProductosDestacados(APIView):
             raise Http404
     def get(self, request, format=None):
         productos = self.get_objects()
-        serializer = ProductoSerializer(productos, many=True)
+        serializer = ProductoViewSerializer(productos, many=True)
 
         return Response(serializer.data)
