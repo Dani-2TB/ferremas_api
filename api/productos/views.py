@@ -150,3 +150,16 @@ class ObtenerUSD(APIView):
     def get(request, format=None):
         usd = obtener_valor_dolar()
         return Response({"valor_usd": usd}, status=status.HTTP_200_OK)
+
+
+class ProductosDestacados(APIView):
+    def get_objects(self):
+        try:
+            return Producto.objects.filter(destacado=True)
+        except Producto.DoesNotExist:
+            raise Http404
+    def get(self, request, format=None):
+        productos = self.get_objects()
+        serializer = ProductoViewSerializer(productos, many=True)
+
+        return Response(serializer.data)
